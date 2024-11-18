@@ -1,0 +1,149 @@
+﻿@page "/RiwayatSKAM"
+@attribute [StreamRendering]
+
+<PageTitle>Riwayat SK RDP</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+        <div class="container mt-3">
+            <div class="badge bg-light text-dark mb-2">
+                <h1 class="page-title">Riwayat SK</h1>
+            </div>
+
+            <!-- Header container with vertical alignment -->
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- Date on the left -->
+                <div class="col-md-6">
+                    <span class="badge bg-light text-dark mt-2" style="margin-bottom:15px">
+                        <span>
+                            <img src="/images/date-icon.png" style="height: 18px; width: 18px; margin-bottom: 2px; margin-right: 10px" />
+                        </span>
+                        @DateTime.Now.ToString("dddd, dd MMMM yyyy")
+                    </span>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-striped text-center m-0" style="width: 100%; margin: 0; border-collapse: separate; border-spacing: 0; border-radius: 15px; overflow: hidden;">
+                        <thead style="background-color: black; color: white;">
+                            <tr style="font-weight: normal; font-size: 14px">
+                                <th>No</th>
+                                <th>Alamat</th>
+                                <th>No RDP</th>
+                                <th>Tipe RDP</th>
+                                <th>Cluster</th>
+                                <th>Nopek</th>
+                                <th>PIC</th>
+                                <th>Kondisi</th>
+                                <th>Status RDP</th>
+                                <th>Keterangan</th>
+                                <th>Memo</th>
+                                <th>Tanggal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var SK in FilteredSK())
+                            {
+                                <tr style="background-color: @SK.RowColor; font-size: 14px;">
+                                    <td>@SK.No</td>
+                                    <td>@SK.Alamat</td>
+                                    <td>@SK.NoRDP</td>
+                                    <td>@SK.TipeRDP</td>
+                                    <td>@SK.Cluster</td>
+                                    <td>@SK.Nopek</td>
+                                    <td>@SK.PIC</td>
+                                    <td>@SK.Kondisi</td>
+                                    <td>@SK.StatusRDP</td>
+                                    <td>@SK.Keterangan</td>
+                                    <td class="table-memo">
+                                        @foreach (var sk in SK.Memo)
+                                        {
+                                            <a href="@sk" target="_blank" class="d-block">
+                                                <div class="file-container">
+                                                    <span class="bi bi-filetype-jpg file-icon"></span>
+                                                    <span class="file-name">@Path.GetFileName(sk)</span>
+                                                </div>
+                                            </a>
+                                        }
+                                    </td>
+                                    <td>@SK.Tanggal</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    private string SearchTerm { get; set; } = string.Empty;
+
+    private List<RiwayatSKRDP> SKList = new List<RiwayatSKRDP>
+    {
+        new RiwayatSKRDP { No = 1, Alamat = "Gunung Simping", NoRDP = "301", TipeRDP = "Perumahan", Cluster = "3", Nopek = "2021", PIC = "Mulyono", Kondisi = "Layak", StatusRDP = "Dihuni", Keterangan = "Pekerja RU IV", Memo = new List<string> { "20240827_090952.jpg", "20240827_090953.jpg" }, Tanggal = "24 Sept 2024", RowColor = "#EDFFC3" },
+        new RiwayatSKRDP { No = 2, Alamat = "Gunung Simping", NoRDP = "302", TipeRDP = "Perumahan", Cluster = "3", Nopek = "2021", PIC = "Mulyono", Kondisi = "Layak", StatusRDP = "Dihuni", Keterangan = "Pekerja RU IV", Memo = new List<string> { "20240827_090952.jpg", "20240827_090953.jpg" }, Tanggal = "24 Sept 2024", RowColor = "#E5F4C1" },
+    };
+
+    private IEnumerable<RiwayatSKRDP> FilteredSK()
+    {
+        if (string.IsNullOrWhiteSpace(SearchTerm))
+            return SKList;
+
+        return SKList.Where(sk => sk.Alamat.Contains(SearchTerm, StringComparison.OrdinalIgnoreCase));
+    }
+
+    public class RiwayatSKRDP
+    {
+        public int No { get; set; }
+        public string Alamat { get; set; }
+        public string NoRDP { get; set; }
+        public string TipeRDP { get; set; }
+        public string Cluster { get; set; }
+        public string Nopek { get; set; }
+        public string PIC { get; set; }
+        public string Kondisi { get; set; }
+        public string StatusRDP { get; set; }
+        public string Keterangan { get; set; }
+        public List<string> Memo { get; set; }
+        public string Tanggal { get; set; }
+        public string RowColor { get; set; }
+    }
+}
+
+<style>
+
+    .bi-filetype-jpg {
+        background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20fill='currentColor'%20class='bi%20bi-filetype-jpg'%20viewBox='0%200%2016%2016'%3E%3Cpath%20fill-rule='evenodd'%20d='M14%204.5V14a2%202%200%2001-2%202h-1v-1h1a1%201%200%20001-1V4.5h-2A1.5%201.5%200%20019.5%203V1H4a1%201%200%2000-1%201v9H2V2a2%202%200%20012-2h5.5zm-4.34%208.132q.114.23.14.492h-.776a.8.8%200%2000-.097-.249.7.7%200%2000-.17-.19.7.7%200%2000-.237-.126%201%201%200%2000-.299-.044q-.428%200-.665.302-.234.301-.234.85v.498q0%20.351.097.615a.9.9%200%2000.304.413.87.87%200%2000.519.146%201%201%200%2000.457-.096.67.67%200%2000.272-.264q.09-.164.091-.363v-.255H8.24v-.59h1.576v.798q0%20.29-.097.55a1.3%201.3%200%2001-.293.458%201.4%201.4%200%2001-.495.313q-.296.111-.697.111a2%202%200%2001-.753-.132%201.45%201.45%200%2001-.533-.377%201.6%201.6%200%2001-.32-.58%202.5%202.5%200%2001-.105-.745v-.506q0-.543.2-.95.201-.406.582-.633.384-.228.926-.228.357%200%20.636.1.28.1.48.275t.314.407ZM0%2014.786q0%20.246.082.465.083.22.243.39.165.17.407.267.246.093.569.093.63%200%20.984-.345.357-.346.358-1.005v-2.725h-.791v2.745q0%20.303-.138.466t-.422.164a.5.5%200%2001-.454-.246.6.6%200%2001-.073-.27H0Zm4.92-2.86H3.322v4h.791v-1.343h.803q.43%200%20.732-.172.305-.177.463-.475.162-.302.161-.677%200-.374-.158-.677a1.2%201.2%200%2000-.46-.477q-.3-.18-.732-.179Zm.546%201.333a.8.8%200%2001-.085.381.57.57%200%2001-.238.24.8.8%200%2001-.375.082H4.11v-1.406h.66q.327%200%20.512.182.185.181.185.521Z'/%3E%3C/svg%3E");
+        display: inline-block;
+        width: 1rem;
+        height: 1rem;
+        background-size: 100%;
+    }
+
+    .table-memo {
+        min-width: 150px; /* Bisa disesuaikan jika dibutuhkan lebih besar */
+        white-space: nowrap; /* Agar teks tidak terpotong atau dibungkus */
+    }
+
+    .file-icon {
+        margin-right: 5px; /* Jarak antara ikon dan nama file */
+    }
+
+    .file-container {
+        display: inline-flex;
+        align-items: center;
+        background-color: white;
+        padding: 8px 12px;
+        border-radius: 12px;
+        margin-bottom: 8px;
+    }
+
+    .bi-pencil-square {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil-square' viewBox='0 0 16 16'%3E%3Cpath d='M15.502 1.94a.5
+    }
+
+</style>

@@ -1,0 +1,229 @@
+﻿@page "/Fasilitas"
+@attribute [StreamRendering]
+
+<PageTitle>Data Fasilitas</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+        <div class="container mt-3">
+            <div class="badge bg-light text-dark mb-2">
+                <h1 class="page-title">Data Fasilitas</h1>
+            </div>
+
+            <!-- Header container with vertical alignment -->
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- Date on the left -->
+                <div class="col-md-6">
+                    <span class="badge bg-light text-dark mt-2" style="margin-bottom:15px">
+                        <span>
+                            <img src="/images/date-icon.png" style="height: 18px; width: 18px; margin-bottom: 2px; margin-right: 10px" />
+                        </span>
+                        @DateTime.Now.ToString("dddd, dd MMMM yyyy")
+                    </span>
+                </div>
+            </div>
+
+            <!-- List of Categories and Items displayed fully -->
+            <div class="facility-list">
+                @foreach (var category in facilityCategories)
+                {
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="row">
+                            <div class="col">
+                                <p class="mb-6" style="margin-left: 12px; margin-top: 12px; color: white; font-size: 16px">General Manager</p>
+                            </div>
+                            <div class="col text-right">
+                                <p class="mb-6" style="text-align: right; margin-right: 12px; margin-top: 12px; color: #FFF16E; font-size: 16px; font-style: italic;">
+                                    <span>
+                                        <img src="/images/arrow-bot.png" alt="Alternate Text" style="height: 10px; width: 20px; margin-left: 1rem; margin-right: 0.5rem" />
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <!-- category-items moved outside of the row for consistent width -->
+                        <div class="category-items p-3" style="background-color: #f8f9fa;">
+                            <div class="row">
+                                @foreach (var item in category.Items)
+                                {
+                                    <div class="col-3 mb-2 d-flex align-items-start">
+                                        <span>@item</span>
+                                        <a href="/formperfasilitas" style="margin-left: 10px; text-decoration: none; color: #007bff;">
+                                            <span class="ml-auto">
+                                                <img src="/images/blackarrow.png" alt="Arrow" style="height: 10px; width: 20px; margin-left: 8px; color: black" />
+                                            </span>
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="row">
+                            <div class="col">
+                                <p class="mb-6" style="margin-left: 12px; margin-top: 12px; color: white; font-size: 16px">SMOM</p>
+                            </div>
+                            <div class="col text-right">
+                                <p class="mb-6" style="text-align: right; margin-right: 12px; margin-top: 12px; color: #FFF16E; font-size: 16px; font-style: italic;">
+
+                                    <span>
+                                        <img src="/images/arrow-bot.png" alt="Alternate Text" style="height: 10px; width: 20px; margin-left: 1rem; margin-right: 0.5rem" />
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="row">
+                            <div class="col">
+                                <p class="mb-6" style="margin-left: 12px; margin-top: 12px; color: white; font-size: 16px">SMOM</p>
+                            </div>
+                            <div class="col text-right">
+                                <p class="mb-6" style="text-align: right; margin-right: 12px; margin-top: 12px; color: #FFF16E; font-size: 16px; font-style: italic;">
+
+                                    <span>
+                                        <img src="/images/arrow-bot.png" alt="Alternate Text" style="height: 10px; width: 20px; margin-left: 1rem; margin-right: 0.5rem" />
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="row">
+                            <div class="col">
+                                <p class="mb-6" style="margin-left: 12px; margin-top: 12px; color: white; font-size: 16px">Manager</p>
+                            </div>
+                            <div class="col text-right">
+                                <p class="mb-6" style="text-align: right; margin-right: 12px; margin-top: 12px; color: #FFF16E; font-size: 16px; font-style: italic;">
+
+                                    <span>
+                                        <img src="/images/arrow-bot.png" alt="Alternate Text" style="height: 10px; width: 20px; margin-left: 1rem; margin-right: 0.5rem" />
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="row">
+                            <div class="col">
+                                <p class="mb-6" style="margin-left: 12px; margin-top: 12px; color: white; font-size: 16px">Section Head</p>
+                            </div>
+                            <div class="col text-right">
+                                <p class="mb-6" style="text-align: right; margin-right: 12px; margin-top: 12px; color: #FFF16E; font-size: 16px; font-style: italic;">
+
+                                    <span>
+                                        <img src="/images/arrow-bot.png" alt="Alternate Text" style="height: 10px; width: 20px; margin-left: 1rem; margin-right: 0.5rem" />
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="row">
+                            <div class="col">
+                                <p class="mb-6" style="margin-left: 12px; margin-top: 12px; color: white; font-size: 16px">RDP Kelas 4</p>
+                            </div>
+                            <div class="col text-right">
+                                <p class="mb-6" style="text-align: right; margin-right: 12px; margin-top: 12px; color: #FFF16E; font-size: 16px; font-style: italic;">
+
+                                    <span>
+                                        <img src="/images/arrow-bot.png" alt="Alternate Text" style="height: 10px; width: 20px; margin-left: 1rem; margin-right: 0.5rem" />
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="row">
+                            <div class="col">
+                                <p class="mb-6" style="margin-left: 12px; margin-top: 12px; color: white; font-size: 16px">RDP Kelas 5</p>
+                            </div>
+                            <div class="col text-right">
+                                <p class="mb-6" style="text-align: right; margin-right: 12px; margin-top: 12px; color: #FFF16E; font-size: 16px; font-style: italic;">
+
+                                    <span>
+                                        <img src="/images/arrow-bot.png" alt="Alternate Text" style="height: 10px; width: 20px; margin-left: 1rem; margin-right: 0.5rem" />
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-bottom: 15px;">
+                        <div class="row">
+                            <div class="col">
+                                <p class="mb-6" style="margin-left: 12px; margin-top: 12px; color: white; font-size: 16px">RDP Kelas 6</p>
+                            </div>
+                            <div class="col text-right">
+                                <p class="mb-6" style="text-align: right; margin-right: 12px; margin-top: 12px; color: #FFF16E; font-size: 16px; font-style: italic;">
+
+                                    <span>
+                                        <img src="/images/arrow-bot.png" alt="Alternate Text" style="height: 10px; width: 20px; margin-left: 1rem; margin-right: 0.5rem" />
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        @code {
+        // Define categories and items
+        private List<FacilityCategory> facilityCategories = new List<FacilityCategory>
+        {
+        new FacilityCategory
+        {
+        Items = new List<string> { "Mesin Cuci", "AC", "Kasur", "Gas", "Lemari", "Kompor", "Kursi", "Panci", "Karpet", "Sendok", "TV", "Sapu", "Oven", "Pisau", "Rak Buku", "Dispenser", "Kotak P3K", "Lampu Meja", "Timbangan", "Setrika", "Gelas", "Rice Cooker", "Teko", "Gunting", "Guling", "Lampu", "Mesin Cuci", "Selang Air", "Speaker", "Bantal" }
+        },
+        };
+
+        // Class definition for facility categories
+        public class FacilityCategory
+        {
+            public string Name { get; set; }
+            public List<string> Items { get; set; }
+        }
+        }
+    </Authorized>
+</AuthorizeView>
+
+<style>
+    .card {
+        background-color: #358DC7;
+        border-radius: 15px;
+        margin-bottom: 0;
+        padding: 0;
+    }
+
+    .facility-list {
+        margin-top: 20px;
+    }
+
+    .category-section {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .category-header {
+        font-weight: bold;
+        text-align: left; /* Text alignment set to left */
+    }
+
+    .category-items {
+        background-color: #ffffff;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        text-align: left; /* Align text to the left */
+    }
+
+        .category-items .row .col-3 {
+            font-size: 14px;
+        }
+</style>

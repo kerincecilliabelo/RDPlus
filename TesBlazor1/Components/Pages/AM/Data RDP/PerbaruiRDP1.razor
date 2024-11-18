@@ -1,0 +1,187 @@
+﻿@page "/perbaruiRDPAM1"
+@inject IJSRuntime js
+
+
+<PageTitle>Data RDP / Perbarui Data RDP</PageTitle>
+
+<div class="container mt-4">
+    <!-- Search and Filter Section -->
+    <AuthorizeView>
+        <Authorized>
+            <div class="container mt-3">
+                <div class="badge bg-light text-dark mb-2">
+                    <h1 class="page-title">Perbarui Data RDP</h1>
+                </div>
+
+                <!-- Header container with vertical alignment -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <!-- Date on the left -->
+                    <div class="col-md-6">
+                        <span class="badge bg-light text-dark mt-2" style="margin-bottom:15px">
+                            <span>
+                                <img src="/images/date-icon.png" style="height: 18px; width: 18px; margin-bottom: 2px; margin-right: 10px" />
+                            </span>
+                            @DateTime.Now.ToString("dddd, dd MMMM yyyy")
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Form for updating RDP Data -->
+            <form class="table-bordered p-3" style="background-color: white; border-radius: 8px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);">
+                <!-- Kondisi -->
+                <div class="mb-3">
+                    <label><b>Kondisi</b></label><br />
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="layak" name="kondisi" value="layak" checked />
+                        <label class="form-check-label" for="layak">Layak</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="tidaklayak" name="kondisi" value="tidaklayak" />
+                        <label class="form-check-label" for="tidaklayak">Tidak Layak</label>
+                    </div>
+                </div>
+
+                <!-- Status RDP -->
+                <div class="mb-3">
+                    <label><b>Status RDP</b></label><br />
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="alihfungsi" name="statusRdp" value="alihfungsi" />
+                        <label class="form-check-label" for="alihfungsi">Alih Fungsi</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="dihuni" name="statusRdp" value="dihuni" checked />
+                        <label class="form-check-label" for="dihuni">Dihuni</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="kosong" name="statusRdp" value="kosong" />
+                        <label class="form-check-label" for="kosong">Kosong</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="peminjaman" name="statusRdp" value="peminjaman" />
+                        <label class="form-check-label" for="peminjaman">Peminjaman</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="tersedia" name="statusRdp" value="tersedia" />
+                        <label class="form-check-label" for="tersedia">Tersedia</label>
+                    </div>
+                </div>
+
+                <!-- No. RDP -->
+                <div class="mb-3">
+                    <label for="noRdp"><b>No. RDP</b></label>
+                    <input type="text" id="noRdp" class="form-control" style="border: 1px solid #2B6CB0" placeholder="Masukkan Tipe RDP" />
+                </div>
+
+                <!-- Keterangan -->
+                <div class="mb-3">
+                    <label for="keterangan"><b>Keterangan</b></label>
+                    <input type="text" id="keterangan" class="form-control" style="border: 1px solid #2B6CB0" value="Pekerja RU IV" />
+                </div>
+
+                <!-- Keterangan 2 -->
+                <div class="mb-3">
+                    <label for="keterangan2"><b>Keterangan 2</b></label>
+                    <input type="text" id="keterangan2" class="form-control" style="border: 1px solid #2B6CB0" value="Dihuni bersama Sdr. Rio Haryanto (Nopek: 2464813)" />
+                </div>
+
+                <!-- Tipe Cluster -->
+                <div class="mb-3">
+                    <label for="tipeCluster"><b>Tipe Cluster</b></label>
+                    <input type="text" id="tipeCluster" class="form-control" style="border: 1px solid #2B6CB0" placeholder="Masukkan Tipe Cluster" />
+                </div>
+
+                <!-- Fasilitas -->
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <!-- Tombol Tambah Fasilitas -->
+                        <div>
+                            <label for="Fasilitas"><b>Fasilitas</b></label>
+                            <br />
+                            <a href="/formperbarui" class="btn btn-primary">Tambah Fasilitas</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- RT and RW Details -->
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <label for="rt"><b>RT</b></label>
+                        <input type="text" id="rt" class="form-control" style="border: 1px solid #2B6CB0" value="001" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="namaKetuaRt"><b>Nama Ketua RT</b></label>
+                        <input type="text" id="namaKetuaRt" class="form-control" style="border: 1px solid #2B6CB0" value="Reza" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="rw"><b>RW</b></label>
+                        <input type="text" id="rw" class="form-control" style="border: 1px solid #2B6CB0" value="002" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="namaKetuaRw"><b>Nama Ketua RW</b></label>
+                        <input type="text" id="namaKetuaRw" class="form-control" style="border: 1px solid #2B6CB0" value="Tegar" />
+                    </div>
+                </div>
+
+                <!-- Alamat -->
+                <div class="mb-3">
+                    <label for="alamat"><b>Alamat</b></label>
+                    <input type="text" id="alamat" class="form-control" style="border: 1px solid #2B6CB0" value="Komperta Gunung Simping, Cilacap Tengah, Kabupaten Cilacap, Jawa Tengah, 32224" />
+                </div>
+
+                <!-- Dokumentasi -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label><b>Dokumentasi RDP Tampak Depan</b></label>
+                        <input type="file" class="form-control" style="border: 1px solid #2B6CB0" />
+                    </div>
+                    <div class="col-md-6">
+                        <label><b>Dokumentasi RDP Tampak Belakang</b></label>
+                        <input type="file" class="form-control" style="border: 1px solid #2B6CB0" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label><b>Dokumentasi Ruang Tamu RDP</b></label>
+                        <input type="file" class="form-control" style="border: 1px solid #2B6CB0" />
+                    </div>
+                    <div class="col-md-6">
+                        <label><b>Dokumentasi Kamar Tidur RDP</b></label>
+                        <input type="file" class="form-control" style="border: 1px solid #2B6CB0" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label><b>Dokumentasi Garasi RDP</b></label>
+                        <input type="file" class="form-control" style="border: 1px solid #2B6CB0" />
+                    </div>
+                    <div class="col-md-6">
+                        <label><b>Dokumentasi Kamar Mandi RDP</b></label>
+                        <input type="file" class="form-control" style="border: 1px solid #2B6CB0" />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="col-md-6">
+                        <label><b>Dokumentasi Fasilitas RDP</b></label>
+                        <input type="file" class="form-control" style="border: 1px solid #2B6CB0" />
+                    </div>
+                </div>
+
+                <!-- Submit button -->
+                <div class="text-center">
+                    <a href="/rdpAM" class="btn btn-primary">Simpan</a>
+                    <a href="/rdpAM" class="btn btn-secondary">Batal</a>
+                </div>
+            </form>
+        </Authorized>
+    </AuthorizeView>
+</div>
+
+@code {
+    private string searchQuery;
+    private string selectedStatus;
+
+    private void FilterByCondition(string condition)
+    {
+        // Add logic to filter based on condition
+    }
+}

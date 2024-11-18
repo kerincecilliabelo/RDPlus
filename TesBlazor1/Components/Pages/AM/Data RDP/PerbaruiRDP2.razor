@@ -1,0 +1,262 @@
+﻿@page "/perbaruiRDPAM2"
+@inject IJSRuntime js
+
+
+
+<PageTitle>Data RDP / Perbarui Data RDP</PageTitle>
+
+<div class="container mt-4">
+    <!-- Search and Filter Section -->
+    <AuthorizeView>
+        <Authorized>
+            <div class="container mt-3">
+                <div class="badge bg-light text-dark mb-2">
+                    <h1 class="page-title">Perbarui Data RDP</h1>
+                </div>
+
+                <!-- Header container with vertical alignment -->
+                <div class="d-flex justify-content-between align-items-center">
+                    <!-- Date on the left -->
+                    <div class="col-md-6">
+                        <span class="badge bg-light text-dark mt-2" style="margin-bottom:15px">
+                            <span>
+                                <img src="/images/date-icon.png" style="height: 18px; width: 18px; margin-bottom: 2px; margin-right: 10px" />
+                            </span>
+                            @DateTime.Now.ToString("dddd, dd MMMM yyyy")
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <!-- Form for updating RDP Data -->
+            <form class="table-bordered p-3" style="background-color: white; border-radius: 8px; box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);">
+                <!-- Kondisi -->
+                <div class="mb-3">
+                    <label><b>Kondisi</b></label><br />
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="layak" name="kondisi" value="layak" checked />
+                        <label class="form-check-label" for="layak">Layak</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="tidaklayak" name="kondisi" value="tidaklayak" />
+                        <label class="form-check-label" for="tidaklayak">Tidak Layak</label>
+                    </div>
+                </div>
+
+                <!-- Status RDP -->
+                <div class="mb-3">
+                    <label><b>Status RDP</b></label><br />
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="alihfungsi" name="statusRdp" value="alihfungsi" />
+                        <label class="form-check-label" for="alihfungsi">Alih Fungsi</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="dihuni" name="statusRdp" value="dihuni" checked />
+                        <label class="form-check-label" for="dihuni">Dihuni</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="kosong" name="statusRdp" value="kosong" />
+                        <label class="form-check-label" for="kosong">Kosong</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="peminjaman" name="statusRdp" value="peminjaman" />
+                        <label class="form-check-label" for="peminjaman">Peminjaman</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" id="tersedia" name="statusRdp" value="tersedia" />
+                        <label class="form-check-label" for="tersedia">Tersedia</label>
+                    </div>
+                </div>
+
+                <!-- No. RDP -->
+                <div class="mb-3">
+                    <label for="noRdp"><b>No. RDP</b></label>
+                    <input type="text" id="noRdp" class="form-control" style="border: 1px solid #2B6CB0" placeholder="Masukkan Tipe RDP" />
+                </div>
+
+                <!-- Keterangan -->
+                <div class="mb-3">
+                    <label for="keterangan"><b>Keterangan</b></label>
+                    <input type="text" id="keterangan" class="form-control" style="border: 1px solid #2B6CB0" value="Pekerja RU IV" />
+                </div>
+
+                <!-- Keterangan 2 -->
+                <div class="mb-3">
+                    <label for="keterangan2"><b>Keterangan 2</b></label>
+                    <input type="text" id="keterangan2" class="form-control" style="border: 1px solid #2B6CB0" value="Dihuni bersama Sdr. Rio Haryanto (Nopek: 2464813)" />
+                </div>
+
+                <!-- Tipe Cluster -->
+                <div class="mb-3">
+                    <label for="tipeCluster"><b>Tipe Cluster</b></label>
+                    <input type="text" id="tipeCluster" class="form-control" style="border: 1px solid #2B6CB0" placeholder="Masukkan Tipe Cluster" />
+                </div>
+
+                <!-- Fasilitas -->
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <!-- Tombol Tambah Fasilitas -->
+                        <div>
+                            <label for="Fasilitas"><b>Fasilitas</b></label>
+                            <br />
+                            @* <button type="button" class="btn btn-primary">Tambah Fasilitas</button> *@
+                        </div>
+
+                        <!-- Label SK -->
+                        <div style="border: 1px solid #2B6CB0; padding: 5px; display: inline-flex; border-radius: 4px;">
+                            <span class="badge" style="background-color: transparent; color: #2B6CB0; border: 1px; padding: 5px; margin-right: 8px; border-radius: 4px;">
+                                <span style="width: 12px; height: 12px; display: inline-block; background-color: #2B6CB0; margin-right: 5px; border-radius: 2px;"></span> Sesuai SK
+                            </span>
+                            <span class="badge" style="background-color: transparent; color: #E53E3E; border: 1px; padding: 5px; border-radius: 4px;">
+                                <span style="width: 12px; height: 12px; display: inline-block; background-color: #E53E3E; margin-right: 5px; border-radius: 2px;"></span> Tidak Sesuai SK
+                            </span>
+                        </div>
+
+                    </div>
+
+
+                    <!-- List Fasilitas -->
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;">Fasilitas</th>
+                                <th style="text-align: center;">Jumlah</th>
+                                <th style="text-align: center;">Keterangan</th>
+                                <th style="text-align: center;">Aksi</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td><input type="text" class="form-control" value="Kursi" /></td>
+                                <td style="text-align: center;"><span style="color: #E53E3E;">(1/2)</span></td>
+                                <td><input type="text" class="form-control" value="Layak tidak ada rusak" readonly /></td>
+                                <td>
+                                    <NavLink class="btn btn-light" href="/">
+                                        <span class="bi bi-pencil-square" aria-hidden="true"></span>
+                                    </NavLink>
+                                    <NavLink class="btn btn-light" href="/rdp-detail">
+                                        <span class="bi-trash3" aria-hidden="true"></span>
+                                    </NavLink>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><input type="text" class="form-control" value="Meja" /></td>
+                                <td style="text-align: center;"><span style="color: #2B6CB0;">(2/2)</span></td>
+                                <td><input type="text" class="form-control" value="Layak tidak ada rusak" readonly /></td>
+                                <td>
+                                    <NavLink class="btn btn-light" href="/">
+                                        <span class="bi bi-pencil-square" aria-hidden="true"></span>
+                                    </NavLink>
+                                    <NavLink class="btn btn-light" href="/rdp-detail">
+                                        <span class="bi-trash3" aria-hidden="true"></span>
+                                    </NavLink>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- RT and RW Details -->
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <label for="rt"><b>RT</b></label>
+                        <input type="text" id="rt" class="form-control" style="border: 1px solid #2B6CB0" value="001" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="namaKetuaRt"><b>Nama Ketua RT</b></label>
+                        <input type="text" id="namaKetuaRt" class="form-control" style="border: 1px solid #2B6CB0" value="Reza" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="rw"><b>RW</b></label>
+                        <input type="text" id="rw" class="form-control" style="border: 1px solid #2B6CB0" value="002" />
+                    </div>
+                    <div class="col-md-3">
+                        <label for="namaKetuaRw"><b>Nama Ketua RW</b></label>
+                        <input type="text" id="namaKetuaRw" class="form-control" style="border: 1px solid #2B6CB0" value="Tegar" />
+                    </div>
+                </div>
+
+                <!-- Alamat -->
+                <div class="mb-3">
+                    <label for="alamat"><b>Alamat</b></label>
+                    <input type="text" id="alamat" class="form-control" style="border: 1px solid #2B6CB0" value="Komperta Gunung Simping, Cilacap Tengah, Kabupaten Cilacap, Jawa Tengah, 32224" />
+                </div>
+
+                <!-- Dokumentasi -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label><b>Dokumentasi RDP Tampak Depan</b></label>
+                        <input type="file" class="form-control" style="border: 1px solid #2B6CB0" />
+                    </div>
+                    <div class="col-md-6">
+                        <label><b>Dokumentasi RDP Tampak Belakang</b></label>
+                        <input type="file" class="form-control" style="border: 1px solid #2B6CB0" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label><b>Dokumentasi Ruang Tamu RDP</b></label>
+                        <input type="file" class="form-control" style="border: 1px solid #2B6CB0" />
+                    </div>
+                    <div class="col-md-6">
+                        <label><b>Dokumentasi Kamar Tidur RDP</b></label>
+                        <input type="file" class="form-control" style="border: 1px solid #2B6CB0" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label><b>Dokumentasi Garasi RDP</b></label>
+                        <input type="file" class="form-control" style="border: 1px solid #2B6CB0" />
+                    </div>
+                    <div class="col-md-6">
+                        <label><b>Dokumentasi Kamar Mandi RDP</b></label>
+                        <input type="file" class="form-control" style="border: 1px solid #2B6CB0" />
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="col-md-6">
+                        <label><b>Dokumentasi Fasilitas RDP</b></label>
+                        <input type="file" class="form-control" style="border: 1px solid #2B6CB0" />
+                    </div>
+                </div>
+
+                <!-- Submit button -->
+                <div class="text-center">
+                    <a href="/rdpAM" class="btn btn-primary">Simpan</a>
+                    <a href="/rdpAM" class="btn btn-secondary">Batal</a>
+                </div>
+            </form>
+        </Authorized>
+    </AuthorizeView>
+</div>
+
+@code {
+    private string searchQuery;
+    private string selectedStatus;
+
+    private void FilterByCondition(string condition)
+    {
+        // Add logic to filter based on condition
+    }
+}
+
+<style>
+    .bi-pencil-square {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-pencil-square' viewBox='0 0 16 16'%3E%3Cpath d='M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z'/%3E%3Cpath fill-rule='evenodd' d='M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z'/%3E%3C/svg%3E");
+        width: 20px; /* Tentukan lebar ikon */
+        height: 20px; /* Tentukan tinggi ikon */
+        background-size: contain; /* Menyesuaikan ukuran ikon */
+        display: inline-block; /* Mengubah elemen menjadi block untuk mendukung ukuran */
+        vertical-align: middle; /* Penempatan ikon dan teks sejajar secara vertikal */
+        border: none;
+    }
+
+    .bi-trash3 {
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-trash3' viewBox='0 0 16 16'%3E%3Cpath d='M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5'/%3E%3C/svg%3E");
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+</style>

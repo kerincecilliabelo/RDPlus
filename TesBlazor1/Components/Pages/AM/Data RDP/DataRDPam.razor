@@ -1,0 +1,273 @@
+﻿@page "/rdpAM"
+@attribute [StreamRendering]
+
+<PageTitle>Data RDP</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+        <div class="container mt-3">
+            <div class="badge bg-light text-dark mb-2">
+                <h1 class="page-title">Data RDP</h1>
+
+            </div>
+
+            <!-- Header container with vertical alignment -->
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="col-md-6">
+                    <span class="badge bg-light text-dark mt-2" style="margin-bottom:15px">
+                        <img src="/images/date-icon.png" style="height: 18px; width: 18px; margin-bottom: 2px; margin-right: 10px" />
+                        @DateTime.Now.ToString("dddd, dd MMMM yyyy")
+                    </span>
+                </div>
+
+            </div>
+
+            <!-- Search and Filter Section -->
+            <div class="d-flex align-items-center gap-2 mt-4 justify-content-between">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" placeholder="Cari RDP" />
+                </div>
+                <div class="ms-auto d-flex align-items-center gap-2">
+                    
+                    <div class="btn-group me-2">
+                        <NavLink class="btn btn-light me-2" style="width: 150px;" href="/rdpAMLayak">Layak</NavLink>
+                        <NavLink class="btn btn-light me-2" style="width: 150px;" href="/rdpAMTIDAKLayak">Tidak Layak</NavLink>
+                    </div>
+                    <select class="form-select">
+                        <option selected>Status RDP</option>
+                        <option value="1">Ahli Fungsi</option>
+                        <option value="2">Dihuni</option>
+                        <option value="3">Guest House</option>
+                        <option value="4">Kosong</option>
+                        <option value="5">Peminjaman</option>
+                        <option value="6">Tersedia</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Cards and Table -->
+            <div class="combined-section mt-4">
+                <div class="card-lelang mb-0">
+                    <p>Gunung Simping (120)</p>
+                    <span>
+                        <img src="/images/arrow-bot.png" alt="Alternate Text" style="height: 10px; color: #FFFFFF; width: 20px; margin-left: 1rem; margin-right: 0.5rem" />
+                    </span>
+                </div>
+
+                <!-- Table with Data Rows -->
+                <div class="table-container">
+                    <table class="table text-center m-0">
+                        <thead style="background-color: black; color: white;">
+                            <tr style="font-weight: normal; font-size: 14px">
+                                <th>No</th>
+                                <th>Alamat</th>
+                                <th>No RDP</th>
+                                <th>Tipe RDP</th>
+                                <th>Cluster</th>
+                                <th>Nopek</th>
+                                <th>Nama Pegawai</th>
+                                <th>Kondisi</th>
+                                <th>Status RDP</th>
+                                <th>Keterangan</th>
+                                <th>Aksi</th>
+                                <th>Tawarkan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var rdp in rdpData)
+
+                            {
+                                <tr style="background-color: @rdp.RowColor; font-size: 14px; position: relative;">
+                                    <td>@rdp.No</td>
+                                    <td>@rdp.Alamat</td>
+                                    <td>@rdp.NoRDP</td>
+                                    <td>@rdp.TipeRDP</td>
+                                    <td>@rdp.Cluster</td>
+                                    <td>@rdp.Nopek</td>
+                                    <td>@rdp.NamaPegawai</td>
+                                    <td>@rdp.Kondisi</td>
+                                    <td>@rdp.StatusRDP</td>
+                                    <td>@rdp.Keterangan</td>
+                                    <td class="action-icons">
+                                        <NavLink class="btn btn-light" href="/detail-layak-AM">
+                                            <span class="bi bi-eye" aria-hidden="true"></span>
+                                        </NavLink>
+                                        <NavLink class="btn btn-light" href="/RiwayatSKAM">
+                                            <span class="bi bi-clock-history" aria-hidden="true"></span>
+                                        </NavLink>
+                                        <NavLink class="btn btn-light" href="/perbaruiRDPAM1">
+                                            <span class="bi bi-pencil-square" aria-hidden="true"></span>
+                                        </NavLink>
+
+                                    <td>
+                                        <input type="checkbox" />
+                                        <div class="updated-info" style="font-size: 12px; font-weight: normal; color: #333; margin-top: 5px;">
+                                            Diperbarui 26 Agustus 2024
+                                        </div>
+                                        <span class="text-danger" style="font-size: 12px; font-weight: bold; font-style: italic; display: block; margin-top: 7px; text-align: right;">
+                                            Perlu Diperbarui
+                                        </span>
+                                    </td>
+
+
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Additional Cards with icons on the right -->
+            <div class="card-lelang mt-4">
+                <p>Donan (4)</p>
+                <span>
+                    <img src="/images/arrow-bot.png" alt="Alternate Text" style="height: 10px; color: #FFFFFF; width: 20px; margin-left: 1rem; margin-right: 0.5rem" />
+                </span>
+            </div>
+            <div class="card-lelang mt-4">
+                <p>Sidanegara (9)</p>
+                <span>
+                    <img src="/images/arrow-bot.png" alt="Alternate Text" style="height: 10px; color: #FFFFFF; width: 20px; margin-left: 1rem; margin-right: 0.5rem" />
+                </span>
+            </div>
+            <div class="card-lelang mt-4">
+                <p>Apartemen (20)</p>
+                <span>
+                    <img src="/images/arrow-bot.png" alt="Alternate Text" style="height: 10px; color: #FFFFFF; width: 20px; margin-left: 1rem; margin-right: 0.5rem" />
+                </span>
+            </div>
+
+            <div class="d-flex justify-content-end mt-2">
+                <button class="btn btn-success" style="width: 150px;">Tampilkan RDP Tersedia</button>
+            </div>
+        </div>
+
+
+        @code {
+        private List<RDPModel> rdpData = new List<RDPModel>
+        {
+        new RDPModel { No = 1, Alamat = "Gunung Simping", NoRDP = 301, TipeRDP = "Perumahan", Cluster = "1", Nopek = 2056, NamaPegawai = "Ramadhan Surya Handika", Kondisi = "Layak", StatusRDP = "Dihuni", Keterangan = "Pekerja RU IV", RowColor = "#EDFFC3" },
+        new RDPModel { No = 2, Alamat = "Gunung Simping", NoRDP = 302, TipeRDP = "Perumahan", Cluster = "2", Nopek = 0, NamaPegawai = "", Kondisi = "Tidak Layak", StatusRDP = "Kosong", Keterangan = "Tidak Layak", RowColor = "#FFE3E4" },
+        new RDPModel { No = 3, Alamat = "Gunung Simping", NoRDP = 303, TipeRDP = "Perumahan", Cluster = "3", Nopek = 2028, NamaPegawai = "Ramadhan Surya Handika", Kondisi = "Layak", StatusRDP = "Kosong", Keterangan = "Proses Perbaikan", RowColor = "#EDFFC3" },
+        new RDPModel { No = 4, Alamat = "Gunung Simping", NoRDP = 304, TipeRDP = "Perumahan", Cluster = "1", Nopek = 2057, NamaPegawai = "Ramadhan Surya Handika", Kondisi = "Layak", StatusRDP = "Dihuni", Keterangan = "Pekerja RU IV", RowColor = "#EDFFC3" }
+        };
+
+        private void FilterByCondition(string condition)
+        {
+
+            // Implement filter logic here
+
+        }
+
+        public class RDPModel
+        {
+
+            public int No { get; set; }
+
+            public string Alamat { get; set; }
+
+            public int NoRDP { get; set; }
+
+            public string TipeRDP { get; set; }
+
+            public string Cluster { get; set; }
+
+            public int Nopek { get; set; }
+
+            public string NamaPegawai { get; set; }
+
+            public string Kondisi { get; set; }
+
+            public string StatusRDP { get; set; }
+
+            public string Keterangan { get; set; }
+
+            public string RowColor { get; set; }
+        }
+        }
+
+        <style>
+            .card-lelang {
+                background-color: #358DC7;
+                border-radius: 15px 15px 0 0;
+                padding: 15px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+            }
+
+                .card-lelang p {
+                    font-size: 16px;
+                    font-weight: bold;
+                    margin: 0;
+                }
+
+            .table-container {
+                overflow-x: auto;
+                margin-bottom: 10px;
+            }
+
+            .updated-info {
+                font-size: 10px;
+                color: #888;
+                margin-top: 5px;
+            }
+
+            .action-icons a {
+                margin-right: 5px;
+            }
+
+            /* Additional styles for icon on right */
+            .card-lelang img {
+                width: 18px;
+                height: 18px;
+                cursor: pointer; /* Cursor pointer for interaction */
+            }
+
+            .bi-house-door-fill {
+                background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20fill='currentColor'%20class='bi%20bi-house-door-fill'%20viewBox='0%200%2016%2016'%3E%3Cpath%20d='M6.5%2014.5v-3.505c0-.245.25-.495.5-.495h2c.25%200%20.5.25.5.5v3.5a.5.5%200%200%200%20.5.5h4a.5.5%200%200%200%20.5-.5v-7a.5.5%200%200%20-.146-.354L13%205.793V2.5a.5.5%200%200%200-.5-.5h-1a.5.5%200%200%200-.5.5v1.293L8.354%201.146a.5.5%200%200%200-.708%200l-6%206A.5.5%200%200%200%201.5%207.5v7a.5.5%200%200%200%20.5.5h4a.5.5%200%200%200%20.5-.5'/%3E%3C/svg%3E");
+                width: 20px;
+                height: 20px;
+                background-size: contain;
+                display: inline-block;
+                vertical-align: middle;
+                border: none;
+            }
+
+            .bi-eye {
+                background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20fill='currentColor'%20class='bi%20bi-eye'%20viewBox='0%200%2016%2016'%3E%3Cpath%20d='M16%208s-3-5.5-8-5.5S0%208%200%208s3%205.5%208%205.5S16%208%2016%208M1.173%208a13%2013%200%200%201%201.66-2.043C4.12%204.668%205.88%203.5%208%203.5s3.879%201.168%205.168%202.457A13%2013%200%200%201%2014.828%208q-.086.13-.195.288c-.335.48-.83%201.12-1.465%201.755C11.879%2011.332%2010.119%2012.5%208%2012.5s-3.879-1.168-5.168-2.457A13%2013%200%200%201%201.172%208z'/%3E%3Cpath%20d='M8%205.5a2.5%202.5%200%201%200%200%205%202.5%202.5%200%200%200%200-5M4.5%208a3.5%203.5%200%201%201%207%200%203.5%203.5%200%200%201-7%200'/%3E%3C/svg%3E");
+                width: 20px;
+                height: 20px;
+                background-size: contain;
+                display: inline-block;
+                vertical-align: middle;
+                border: none;
+            }
+
+            .bi-clock-history {
+                background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20fill='currentColor'%20class='bi%20bi-clock-history'%20viewBox='0%200%2016%2016'%3E%3Cpath%20d='M8.515%201.019A7%207%200%200%200%208%201V0a8%208%200%200%201%20.589.022zm2.004.45a7%207%200%200%200-.985-.299l.219-.976q.576.129%201.126.342zm1.37.71a7%207%200%200%200-.439-.27l.493-.87a8%208%200%200%201%20.979.654l-.615.789a7%207%200%200%200-.418-.302zm1.834%201.79a7%207%200%200%200-.653-.796l.724-.69q.406.429.747.91zm.744%201.352a7%207%200%200%200-.214-.468l.893-.45a8%208%200%200%201%20.45%201.088l-.95.313a7%207%200%200%200-.179-.483m.53%202.507a7%207%200%200%200-.1-1.025l.985-.17q.1.58.116%201.17zm-.131%201.538q.05-.254.081-.51l.993.123a8%208%200%200%201-.23%201.155l-.964-.267q.069-.247.12-.501m-.952%202.379q.276-.436.486-.908l.914.405q-.24.54-.555%201.038zm-.964%201.205q.183-.183.35-.378l.758.653a8%208%200%200%201-.401.432z'/%3E%3Cpath%20d='M8%201a7%207%200%201%200%204.95%2011.95l.707.707A8.001%208.001%200%201%201%208%200z'/%3E%3Cpath%20d='M7.5%203a.5.5%200%200%201%20.5.5v5.21l3.248%201.856a.5.5%200%200%201-.496.868l-3.5-2A.5.5%200%200%201%207%209V3.5a.5.5%200%200%201%20.5-.5'/%3E%3C/svg%3E");
+                width: 16px;
+                height: 16px;
+                background-size: contain;
+                display: inline-block;
+                vertical-align: middle;
+                border: none;
+            }
+
+            .bi-pencil-square {
+                background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='16'%20height='16'%20fill='currentColor'%20class='bi%20bi-pencil-square'%20viewBox='0%200%2016%2016'%3E%3Cpath%20d='M15.502%201.94a.5.5%200%200%201%200%20.706L14.459%203.69l-2-2L13.502.646a.5.5%200%200%201%20.707%200l1.293%201.293zm-1.75%202.456-2-2L4.939%209.21a.5.5%200%200%200-.121.196l-.805%202.414a.25.25%200%200%200%20.316.316l2.414-.805a.5.5%200%200%200%20.196-.12l6.813-6.814z'/%3E%3Cpath%20fill-rule='evenodd'%20d='M1%2013.5A1.5%201.5%200%200%200%202.5%2015h11a1.5%201.5%200%200%200%201.5-1.5v-6a.5.5%200%200%200-1%200v6a.5.5%200%200%201-.5.5h-11a.5.5%200%200%201-.5-.5v-11a.5.5%200%200%201.5-.5H9a.5.5%200%200%200%200-1H2.5A1.5%201.5%200%200%200%201%202.5z'/%3E%3C/svg%3E");
+                width: 16px;
+                height: 16px;
+                background-size: contain;
+                display: inline-block;
+                vertical-align: middle;
+                border: none;
+            }
+
+        </style>
+    </Authorized>
+</AuthorizeView>
